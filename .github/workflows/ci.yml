@@ -1,6 +1,7 @@
 name: CI
 on:
   push:
+  workflow_dispatch:
 env:
   FORCE_COLOR: true
   NODE_VERSION: 16
@@ -15,14 +16,15 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: ${{ env.NODE_VERSION }}
-      - name: Restore cache
-        uses: actions/cache@v2
-        with:
-          path: |
-            node_modules
-            */*/node_modules
-          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
-          restore-keys: ${{ runner.os }}-yarn-
+#       - name: Restore cache
+#         uses: actions/cache@v2
+#         with:
+#           path: |
+#             node_modules
+#             */*/node_modules
+#           key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+#           restore-keys: ${{ runner.os }}-yarn-
+      - run: yarn upgrade eslint@7.32.0
       - name: Install dependencies
         run: yarn install --immutable
       - name: Check code quality
