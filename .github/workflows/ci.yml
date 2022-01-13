@@ -24,6 +24,7 @@ jobs:
 #             */*/node_modules
 #           key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
 #           restore-keys: ${{ runner.os }}-yarn-
+      - run: yarn upgrade eslint@7.32.0
       - name: Install dependencies
         run: yarn install --immutable
       - name: Check code quality
